@@ -1,0 +1,35 @@
+{
+  "name": "@tulshina/env-status",
+  "version": "1.0.0",
+  "description": "CLI tool for monitoring environments state",
+  "main": "src/index.js",
+  "scripts": {},
+  "bin": {
+    "env-status": "src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tulshina/env-status.git"
+  },
+  "keywords": [
+    "cli",
+    "teamcity",
+    "git",
+    "env"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "chalk": "^4.1.0",
+    "commander": "^5.1.0",
+    "moment": "^2.26.0",
+    "ora": "^4.0.4",
+    "shell": "^0.5.0",
+    "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
+    "np": "^6.2.4",
+    "npm-check-updates": "^7.0.1"
+  }
+}
