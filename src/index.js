@@ -10,7 +10,7 @@ const Ora = require('ora');
 let accessToken;
 program.version('1.0.0');
 program.name('env-status');
-program.arguments('<token>');
+program.arguments('[token]');
 program.action((arg) => {
     accessToken = arg;
 });
