@@ -131,12 +131,14 @@ const main = async () => {
         }
     }
 
-    ora.text = 'All required data fetched';
-    ora.succeed();
-    console.log(`${`Env:`.padEnd(7)}  ${`Deployed by:`.padEnd(19)}  ${`Finish Date:`.padEnd(19)}   ${`State:`.padEnd(14)}  ${`BranchName:`.padEnd(20)}`);
-    console.log(`${`----`.padEnd(7)}  ${`------------`.padEnd(19)}  ${`------------`.padEnd(19)}   ${`------`.padEnd(14)}  ${`-----------`.padEnd(20)}`);
-    result
-        .forEach(({formatted}) => console.log(formatted));
+    if (result.length !== 0) {
+        ora.text = 'All required data fetched';
+        ora.succeed();
+        console.log(`${`Env:`.padEnd(7)}  ${`Deployed by:`.padEnd(19)}  ${`Finish Date:`.padEnd(19)}   ${`State:`.padEnd(14)}  ${`BranchName:`.padEnd(20)}`);
+        console.log(`${`----`.padEnd(7)}  ${`------------`.padEnd(19)}  ${`------------`.padEnd(19)}   ${`------`.padEnd(14)}  ${`-----------`.padEnd(20)}`);
+        result
+            .forEach(({formatted}) => console.log(formatted));
+    }
 
 };
 
