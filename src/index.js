@@ -89,40 +89,46 @@ const main = async () => {
     ora.start();
 
     for (const env of envs) {
-        ora.text = `(${env}/${envs.length}) Fetching data about ${env}`;
-        const {
-            data: {
-                build
-            }
-        } = await axios.get(`${API_URL}`, {
-            timeout: 5000,
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-            params: {
-                locator: `buildType:ItDeployments_CRMext_ECSv2_Nonprod_${env}_OneClickDeployment,count:1,defaultFilter:false`,
-            },
-        });
-        const buildId = build[0].id
+        try {
+            ora.text = `(${env}/${envs.length}) Fetching data about ${env}`;
+            const {
+                data: {
+                    build
+                }
+            } = await axios.get(`${API_URL}`, {
+                timeout: 5000,
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                params: {
+                    locator: `buildType:ItDeployments_CRMext_ECSv2_Nonprod_${env}_OneClickDeployment,count:1,defaultFilter:false`,
+                },
+            });
+            const buildId = build[0].id
 
-        const {
-            data: {
-                finishDate,
-                status,
-                state,
-                branchName,
-                triggered: {user: {name}}
-            }
-        } = await axios.get(`${API_URL}/id:${buildId}`, {
-            timeout: 5000,
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        });
-        const resDate = moment(finishDate).format('YYYY-MM-DD HH-MM');
-        const envColorized = colorizeState(`${env}`.padEnd(5));
-        const formatted = `[${envColorized}]  ${name.padEnd(20)} ${resDate.padEnd(20)}  ${state.padEnd(15)} ${branchName}`;
-        result.push({formatted});
+            const {
+                data: {
+                    finishDate,
+                    status,
+                    state,
+                    branchName,
+                    triggered: {user: {name}}
+                }
+            } = await axios.get(`${API_URL}/id:${buildId}`, {
+                timeout: 5000,
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            const resDate = finishDate ? moment(finishDate).format('YYYY-MM-DD HH:mm:ss') : '----------';
+            const envColorized = colorizeState(`${env}`.padEnd(5));
+            const formatted = `[${envColorized}]  ${name.padEnd(20)} ${resDate.padEnd(20)}  ${state.padEnd(15)} ${branchName}`;
+            result.push({formatted});
+        }
+    catch (e) {
+            ora.fail(`Failed to fetch ${env} data: ${e.message}`);
+            ora.start(`Resuming...`);
+        }
     }
 
     ora.text = 'All required data fetched';
