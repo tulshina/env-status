@@ -43,6 +43,7 @@ const loadColorMap = () => {
             'Dev2': chalk.yellow,
             'Dev3': chalk.yellow,
             'Dev4': chalk.yellow,
+            'Dev5': chalk.yellow,
             'Audt': chalk.yellow
         };
     };
@@ -75,7 +76,7 @@ const colorizeState = (state) => {
 
 const main = async () => {
     readToken();
-    const envs = ["Dev2", "Dev3", "Dev4", "Audt"]
+    const envs = ["Dev2", "Dev3", "Dev4", "Dev5", "Audt"]
     const API_URL = `https://buildserver.labs.intellij.net/app/rest/builds`;
 
     console.log(chalk.green(`Fetching data about ${envs.length} environments...`));
@@ -134,8 +135,8 @@ const main = async () => {
     if (result.length !== 0) {
         ora.text = 'All required data fetched';
         ora.succeed();
-        console.log(`${`Env:`.padEnd(7)}  ${`Deployed by:`.padEnd(19)}  ${`Finish Date:`.padEnd(19)}   ${`State:`.padEnd(14)}  ${`BranchName:`.padEnd(20)}`);
-        console.log(`${`----`.padEnd(7)}  ${`------------`.padEnd(19)}  ${`------------`.padEnd(19)}   ${`------`.padEnd(14)}  ${`-----------`.padEnd(20)}`);
+        console.log(`${`Env:`.padEnd(7)}  ${`Deployed by:`.padEnd(19)}  ${`Finish Date:`.padEnd(19)}   ${`State:`.padEnd(14)}  ${`Branch Name:`.padEnd(20)}`);
+        console.log(`${`----`.padEnd(7)}  ${`------------`.padEnd(19)}  ${`------------`.padEnd(19)}   ${`------`.padEnd(14)}  ${`------------`.padEnd(20)}`);
         result
             .forEach(({formatted}) => console.log(formatted));
     }
